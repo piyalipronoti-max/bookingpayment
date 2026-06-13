@@ -1,1 +1,80 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Payment</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f2f4f8;margin:0;padding:15px;text-align:center}
+.box{max-width:520px;background:white;margin:auto;padding:20px;border-radius:16px;box-shadow:0 0 15px #ccc}
+.topImage{width:100%;max-width:480px;border-radius:14px;margin-bottom:15px}
+p{font-size:16px;line-height:1.7;color:#222}
+input,textarea,button{width:100%;padding:13px;margin-top:10px;font-size:16px;border-radius:9px;border:1px solid #ccc;box-sizing:border-box}
+button{background:#0b8f2a;color:white;border:none;font-weight:bold}
+.qrBox{display:none;background:white;padding:15px;margin:15px auto;border:2px solid #ddd;border-radius:12px;width:260px}
+.qrBox img{width:230px;height:230px}
+.result{display:none;background:#eaffea;border:1px solid green;padding:15px;margin-top:15px;border-radius:10px}
+</style>
+</head>
 
+<body>
+<div class="box">
+
+<img src="top.jpg" class="topImage" alt="Top Image">
+
+<p>
+বুকিং করার জন্য নিচে এমাউন্ট লিখুন এবং "QR কোড তৈরি করুন" এবং QR কোডটি স্ক্যান করে পেমেন্ট করুন।
+ফোনপে/জিপে/পেটিএম যেকোনো অ্যাপসের মাধ্যমে পেমেন্ট হয়ে গেলে পেমেন্টের স্ক্রিনশট আপলোড করে
+সাবমিট বাটনটি টিপুন। এছাড়াও আপনি আমার ১০টা ছবির একটি ফ্রি সেটও পাবেন আপনার পছন্দের সার্ভিসের সাথে।
+</p>
+
+<input type="number" id="amount" placeholder="এখানে Amount লিখুন">
+
+<button onclick="generateQR()">QR code তৈরি করো</button>
+
+<div class="qrBox" id="qrBox">
+<img id="qrImage" src="">
+</div>
+
+<label><b>Payment Screenshot Upload করুন:</b></label>
+<input type="file" accept="image/*">
+
+<p><b>নিচের বক্সে আপনার নাম এবং (যেকোনো একটি) মোবাইল নম্বর/মেসেঞ্জার/টেলিগ্রাম আইডি লিখুন—যে মাধ্যমে আপনার সাথে যোগাযোগ করা যাবে।</b></p>
+<textarea rows="4" placeholder="আপনার নাম ও যোগাযোগের তথ্য লিখুন"></textarea>
+
+<p><b>আপনি কি কোনো বিশেষ কাজ করাতে চান? যেমন ভিডিও কলে কোনো বিশেষ অনুরোধ</b></p>
+<textarea rows="4" placeholder="আপনার বিশেষ অনুরোধ লিখুন"></textarea>
+
+<button onclick="showResult()">Submit</button>
+
+<div class="result" id="result">
+<h3>ধন্যবাদ!</h3>
+<p>আপনার তথ্য জমা হয়েছে। আমি আপনাকে ম্যানুয়ালি যোগাযোগ করব।</p>
+</div>
+
+</div>
+
+<script>
+function generateQR(){
+  let amount = document.getElementById("amount").value;
+
+  if(amount <= 0){
+    alert("দয়া করে সঠিক amount লিখুন");
+    return;
+  }
+
+  let upi = "upi://pay?pa=msghosh7997@naviaxis&pn=Piyali%20Ghosh&am=" + amount + "&cu=INR";
+
+  let qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=" + encodeURIComponent(upi);
+
+  document.getElementById("qrImage").src = qrUrl;
+  document.getElementById("qrBox").style.display = "block";
+}
+
+function showResult(){
+  document.getElementById("result").style.display = "block";
+}
+</script>
+
+</body>
+</html>
