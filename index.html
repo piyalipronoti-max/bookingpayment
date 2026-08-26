@@ -63,7 +63,7 @@ function generateQR(){
     return;
   }
 
-  let upi = "upi://pay?pa=msghosh7997@naviaxis&pn=Piyali%20Ghosh&am=" + amount + "&cu=INR";
+  let upi = "upi://pay?pa=ghosh24uservce@naviaxis&pn=Piyali%20Ghosh&am=" + amount + "&cu=INR";
 
   let qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=" + encodeURIComponent(upi);
 
